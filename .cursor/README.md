@@ -18,6 +18,10 @@ For the **full setup guide (Vietnamese)**, see the repository **[`README.md`](..
     _mirror_paths.py
 ```
 
+## Slash commands
+
+Markdown files in **`.cursor/commands/`** (top level only, `*.md`) become `/filename-without-md` in chat. Example: `ck-cook.md` → type **`/ck-cook`**. Nested folders under `commands/` are often **not** listed by Cursor’s `/` picker.
+
 ## Workspace rule
 
 Cursor resolves `.cursor/**` from the **opened workspace folder**. That folder must **directly** contain `.cursor/`.

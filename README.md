@@ -10,7 +10,7 @@ Repo này cung cấp một thư mục **`.cursor/`** (skills, rules, commands, a
 |------------|---------|
 | `.cursor/skills/` | Skill dạng `tên-skill/SKILL.md` (frontmatter `name`, `description`). |
 | `.cursor/rules/` | Rule Cursor (`.mdc`, có `globs` / `alwaysApply`). |
-| `.cursor/commands/` | Lệnh project (Markdown), thường gọi workflow trong `skills/`. |
+| `.cursor/commands/*.md` | Slash command project: tên lệnh = tên file bỏ `.md` (vd. `ck-cook.md` → **`/ck-cook`**). Giữ file **phẳng** trong `commands/` — Cursor thường **không** liệt kê lệnh trong thư mục con. |
 | `.cursor/agents/`, `contexts/`, `coding-levels/` | Prompt / ngữ cảnh tham chiếu cho agent. |
 | `.cursor/hooks/` | Script Python (gốc Claude Code) — **tùy chọn**, xem mục [Hooks](#phần-bổ-sung-hooks-tùy-chọn). |
 
@@ -81,7 +81,8 @@ Không mở nhầm thư mục cha nếu `.cursor/` không nằm ở đó.
 
 1. **Rules** — Trong Cursor, mở phần Rules / Project rules (theo phiên bản Cursor) và xác nhận có rule dưới `.cursor/rules/*.mdc`.
 2. **Skills** — Thử `@` hoặc skill picker (nếu bản Cursor của bạn hỗ trợ) với tên skill trong `.cursor/skills/` (ví dụ `ck-plan`, `code-review`).
-3. **Commands** — Mở Command Palette, tìm các command project trong `.cursor/commands/` (ví dụ nhóm `ck/`).
+3. **Commands** — Trong ô chat / Composer, gõ **`/`** rồi tìm lệnh có tên file (vd. **`/ck-cook`**, **`/ck-plan`**, **`/ck-init`**).  
+   - Các file nằm **phẳng** trong `.cursor/commands/` dạng `ck-*.md` để Cursor nhận (thư mục con `ck/` thường **không** hiện trong menu `/`).
 
 Chi tiết kỹ thuật và giới hạn (hooks, workspace): [`.cursor/README.md`](.cursor/README.md).
 
@@ -100,7 +101,7 @@ Script kiểm tra:
 | Hạng mục | Việc làm |
 |----------|----------|
 | **Agents** (`agents/*.md`) | Có frontmatter YAML `---`; nội dung không quá mỏng. |
-| **Commands** (`commands/**/*.md`) | Có `---` đầu file; cảnh báo nếu còn chuỗi `.claude/`. |
+| `.cursor/commands/**/*.md` | Có `---` đầu file; cảnh báo nếu còn chuỗi `.claude/`. |
 | **Skills** (`skills/**/SKILL.md`) | Mọi `SKILL.md` (kể cả thư mục con) đều có frontmatter. |
 | **Hooks** (`hooks/**/*.py`) | Parse cú pháp Python (`ast`); chạy **smoke** từng entry script với stdin tối thiểu (exit 0 hoặc 2 = chấp nhận). |
 | **Portability** | Cảnh báo nếu hook vẫn đọc `.claude/contexts` hoặc `.claude/session-data` (xem output WARN). |
@@ -115,11 +116,11 @@ Sau khi mở đúng workspace:
 
 | Mục đích | Gợi ý |
 |----------|--------|
-| Lên ý tưởng / spec trước khi code | Command / prompt liên quan **brainstorm** → đọc `.cursor/skills/ck-brainstorm/SKILL.md`. |
-| Lập kế hoạch triển khai | **plan** → `.cursor/skills/ck-plan/SKILL.md`. |
-| Code theo plan | **cook** → `.cursor/skills/ck-cook/SKILL.md`. |
-| Sửa lỗi có quy trình | **fix** → `.cursor/skills/ck-fix/SKILL.md`. |
-| Bootstrap `.cursor` sang project khác | **init** → `.cursor/commands/ck/init.md`. |
+| Lên ý tưởng / spec trước khi code | **`/ck-brainstorm`** → `.cursor/skills/ck-brainstorm/SKILL.md`. |
+| Lập kế hoạch triển khai | **`/ck-plan`** → `.cursor/skills/ck-plan/SKILL.md`. |
+| Code theo plan | **`/ck-cook`** → `.cursor/skills/ck-cook/SKILL.md`. |
+| Sửa lỗi có quy trình | **`/ck-fix`** → `.cursor/skills/ck-fix/SKILL.md`. |
+| Bootstrap `.cursor` sang project khác | **`/ck-init`** → `.cursor/commands/ck-init.md`. |
 
 Nội dung cụ thể nằm trong từng file `SKILL.md` / command — agent sẽ đọc path **tương đối** `.cursor/...` trong repo bạn.
 

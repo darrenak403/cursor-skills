@@ -1,4 +1,0 @@
-[2026-05-14 13:30:31] Context compaction triggered
-[2026-05-14 13:31:01] Context compaction triggered
-[2026-05-14 13:32:22] Context compaction triggered
-[2026-05-14 13:33:10] Context compaction triggered

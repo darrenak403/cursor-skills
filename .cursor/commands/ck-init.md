@@ -99,11 +99,11 @@ Bundle label → files mapping used in Step 5:
 
 | Label             | Commands                 | Agents                                                                                                                      |
 | ----------------- | ------------------------ | --------------------------------------------------------------------------------------------------------------------------- |
-| plan / cook / fix | plan.md, cook.md, fix.md | scout, debugger, tester, code-reviewer, planner, researcher, plan-reviewer, project-manager, docs-manager, git-manager |
-| code-review       | code-review.md           | code-reviewer (skip if already copied)                                                                                      |
-| learn             | learn.md                 | —                                                                                                                           |
-| show-off          | show-off.md              | playwright-capture                                                                                                          |
-| docs-fe           | docs-fe.md               | —                                                                                                                           |
+| plan / cook / fix | `ck-plan.md`, `ck-cook.md`, `ck-fix.md` | scout, debugger, tester, code-reviewer, planner, researcher, plan-reviewer, project-manager, docs-manager, git-manager |
+| code-review       | `ck-code-review.md`           | code-reviewer (skip if already copied)                                                                                      |
+| learn             | `ck-learn.md`                 | —                                                                                                                           |
+| show-off          | `ck-show-off.md`              | playwright-capture                                                                                                          |
+| docs-fe           | `ck-docs-fe.md`               | —                                                                                                                           |
 
 ---
 
@@ -185,7 +185,7 @@ Options: `Yes, write` / `Abort`
 **5a. Create directories**
 
 ```bash
-mkdir -p <target>/.cursor/commands/ck
+mkdir -p <target>/.cursor/commands
 mkdir -p <target>/.cursor/agents
 mkdir -p <target>/.cursor/skills
 mkdir -p <target>/.cursor/hooks
@@ -204,7 +204,7 @@ From `the Cursor workspace root (the folder that contains this `.cursor` directo
 - `contexts/dev.md`, `contexts/research.md`, `contexts/review.md`
 - All files in `coding-levels/` (enumerate with Glob — do not hardcode names)
 - `rules/ck-command-design.mdc`, `rules/ck-agent-design.mdc`, `rules/ck-skill-design.mdc`
-- `commands/ck/init.md`, `commands/ck/coding-level.md`, `commands/ck/brainstorm.md`
+- `commands/ck-init.md`, `commands/ck-coding-level.md`, `commands/ck-brainstorm.md` (and other `ck-*.md` command files as needed)
 
 **5c. Copy bundle files**
 
