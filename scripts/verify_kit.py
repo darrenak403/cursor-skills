@@ -49,7 +49,7 @@ def check_commands() -> list[str]:
     if not list(COMMANDS.rglob("*.md")):
         issues.append("FAIL no commands")
     # init.md documents old rule filenames
-    init = COMMANDS / "ck" / "init.md"
+    init = COMMANDS / "ck-init.md"
     if init.exists():
         t = init.read_text(encoding="utf-8", errors="replace")
         if "rules/agents.md" in t or "rules/commands.md" in t or "rules/skills.md" in t:
@@ -131,20 +131,13 @@ def check_hooks_runtime() -> list[str]:
     return issues
 
 
-def check_portability() -> list[str]:
-    """Hooks still target Claude Code paths (.claude) in several places."""
+def check_repo_cursor_only() -> list[str]:
+    """cursor-skills ships Cursor kit only — no .claude/ tree in repo."""
     issues: list[str] = []
-    dr = HOOKS / "dev_rules_reminder.py"
-    if dr.exists() and 'root / ".claude" / "contexts"' in dr.read_text(encoding="utf-8", errors="replace"):
+    claude_dir = REPO / ".claude"
+    if claude_dir.exists():
         issues.append(
-            "WARN portability: dev_rules_reminder reads .claude/contexts only — "
-            "kit contexts live under .cursor/contexts/"
-        )
-    cfg = HOOKS / "lib" / "ck_config_utils.py"
-    if cfg.exists() and 'root / ".claude"' in cfg.read_text(encoding="utf-8", errors="replace"):
-        issues.append(
-            "WARN portability: get_sessions_dir() uses <root>/.claude/session-data — "
-            "pure .cursor installs need symlink or code change for session files"
+            "FAIL .claude/ must not exist in this repo — remove it and rely on .cursor/ only"
         )
     return issues
 
@@ -160,7 +153,7 @@ def main() -> int:
     all_issues += check_skills()
     all_issues += py_compile_hooks()
     all_issues += check_hooks_runtime()
-    all_issues += check_portability()
+    all_issues += check_repo_cursor_only()
 
     fails = [x for x in all_issues if x.startswith("FAIL")]
     warns = [x for x in all_issues if x.startswith("WARN")]

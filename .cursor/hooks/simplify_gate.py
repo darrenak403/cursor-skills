@@ -6,7 +6,7 @@ Tracks cumulative edit metrics per session. Emits SIMPLIFY_TRIGGERED when any
 threshold is breached. Thresholds read from .ck.json simplify.threshold.
 
 Defaults: totalLoc=400, fileCount=8, singleFileLoc=200
-State: .claude/session-data/simplify-tracker-{session_id}.json
+State: .cursor/session-data/simplify-tracker-{session_id}.json
 Resets when cook Step 3.S invokes simplify and clears the state file.
 """
 
@@ -34,7 +34,7 @@ def _load_config(root: Path) -> dict:
 
 
 def _state_path(root: Path, session_id: str) -> Path:
-    d = root / ".claude" / "session-data"
+    d = root / ".cursor" / "session-data"
     d.mkdir(parents=True, exist_ok=True)
     return d / f"simplify-tracker-{session_id}.json"
 

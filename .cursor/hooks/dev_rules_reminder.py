@@ -65,7 +65,7 @@ def get_session_header() -> str:
 
 
 def load_context_file(root: Path, mode: str) -> str | None:
-    ctx_file = root / ".claude" / "contexts" / f"{mode}.md"
+    ctx_file = root / ".cursor" / "contexts" / f"{mode}.md"
     if ctx_file.exists():
         return ctx_file.read_text(encoding="utf-8", errors="replace").strip()
     return None

@@ -2,7 +2,7 @@
 """
 Hook: PostToolUse Read|Grep|Bash
 Detects large tool responses and emits ARTIFACT_FOLD_TRIGGERED, instructing
-Claude to save the full output to .claude/artifacts/ and use a path reference.
+Claude to save the full output to .cursor/artifacts/ and use a path reference.
 
 Design: signal-only. PostToolUse hooks cannot prevent a large response from
 entering context — this signals Claude to fold it in its next reply.
@@ -70,7 +70,7 @@ def main() -> None:
 
     tool_name = payload.get("tool_name", "unknown").lower()
     ts = datetime.now(timezone.utc).strftime("%Y%m%dT%H%M%SZ")
-    artifact_path = f".claude/artifacts/artifact-{ts}-{tool_name}.md"
+    artifact_path = f".cursor/artifacts/artifact-{ts}-{tool_name}.md"
 
     preview = "\n".join(response_text.splitlines()[:preview_lines])
 

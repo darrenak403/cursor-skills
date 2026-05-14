@@ -66,7 +66,7 @@ def main() -> None:
         if caveman_state.exists():
             caveman_state.write_text('{"active": false}', encoding="utf-8")
         tmp_dir = Path(os.environ.get("TEMP", os.environ.get("TMPDIR", tempfile.gettempdir())))
-        counter = tmp_dir / f"claude-tool-count-{session_id}"
+        counter = tmp_dir / f"ck-tool-count-{session_id}"
         if counter.exists():
             counter.write_text("0", encoding="utf-8")
 

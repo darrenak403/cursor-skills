@@ -44,10 +44,10 @@ Add to your `claude_desktop_config.json` or MCP settings:
 
 ### Step 2: Add Skill to Project
 
-Copy this skill folder to your project's `.claude/skills/` directory:
+Copy this skill folder to your project's `.cursor/skills/` directory:
 
 ```bash
-cp -r sequential-thinking /path/to/your/project/.claude/skills/
+cp -r sequential-thinking /path/to/your/project/.cursor/skills/
 ```
 
 ### Step 3: Verify Installation

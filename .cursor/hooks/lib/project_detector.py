@@ -77,7 +77,8 @@ def get_package_manager(project_dir: Path | None = None) -> dict:
         if (d / lock).exists():
             return {"name": name, "source": "lock-file"}
 
-    global_cfg = Path(os.environ.get("HOME") or os.environ.get("USERPROFILE", "")) / ".claude" / "package-manager.json"
+    home = Path(os.environ.get("HOME") or os.environ.get("USERPROFILE", ""))
+    global_cfg = home / ".cursor" / "package-manager.json"
     if global_cfg.exists():
         try:
             cfg = json.loads(global_cfg.read_text(encoding="utf-8"))

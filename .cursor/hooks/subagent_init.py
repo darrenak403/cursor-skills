@@ -13,7 +13,7 @@ import re
 import sys
 from pathlib import Path
 
-SESSION_CONTEXT_FILE = ".claude/session-data/session-context.json"
+SESSION_CONTEXT_FILE = ".cursor/session-data/session-context.json"
 PLANS_DIR = "plans"
 STATUS_ACTIVE = "🟡"
 STATUS_COMPLETE = "✅"

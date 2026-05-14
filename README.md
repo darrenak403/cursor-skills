@@ -101,10 +101,10 @@ Script kiểm tra:
 | Hạng mục | Việc làm |
 |----------|----------|
 | **Agents** (`agents/*.md`) | Có frontmatter YAML `---`; nội dung không quá mỏng. |
-| `.cursor/commands/**/*.md` | Có `---` đầu file; cảnh báo nếu còn chuỗi `.claude/`. |
+| `.cursor/commands/**/*.md` | Có `---` đầu file; cảnh báo nếu còn chuỗi `.claude/` trong nội dung (nên chỉ tham chiếu `.cursor/`). |
 | **Skills** (`skills/**/SKILL.md`) | Mọi `SKILL.md` (kể cả thư mục con) đều có frontmatter. |
 | **Hooks** (`hooks/**/*.py`) | Parse cú pháp Python (`ast`); chạy **smoke** từng entry script với stdin tối thiểu (exit 0 hoặc 2 = chấp nhận). |
-| **Portability** | Cảnh báo nếu hook vẫn đọc `.claude/contexts` hoặc `.claude/session-data` (xem output WARN). |
+| **Repo layout** | Thất bại nếu tồn tại thư mục **`.claude/`** trong `cursor-skills` (repo chỉ dành cho Cursor). |
 
 **Giới hạn:** không thể xác nhận từ CLI rằng **Cursor** đã load rule/command trong UI — cần mở project trong Cursor và thử thủ công (mục Phần 4). Hooks Python **không** được Cursor gọi trừ khi bạn cấu hình `hooks.json`.
 
@@ -128,7 +128,7 @@ Nội dung cụ thể nằm trong từng file `SKILL.md` / command — agent s�
 
 ## Phần bổ sung: Hooks (tuỳ chọn)
 
-- Thư mục `.cursor/hooks/*.py` xuất phát từ **Claude Code**, nhiều chỗ vẫn tham chiếu `.claude/` / session kiểu Claude.
+- Thư mục `.cursor/hooks/*.py` là **hook kiểu Claude Code** (tuỳ chọn). Chúng đọc/ghi state dưới **`.cursor/session-data`**, **`.cursor/contexts`**, v.v. — không cần thư mục `.claude/` trong project.
 - **Cursor** dùng file **`hooks.json`** và [giao thức hook riêng](https://docs.cursor.com). Kit **không** bật hook Python tự động sau khi copy.
 - Đọc thêm: [`.cursor/hooks/README.md`](.cursor/hooks/README.md).
 
@@ -136,16 +136,17 @@ Nội dung cụ thể nằm trong từng file `SKILL.md` / command — agent s�
 
 ## Phần dành cho người maintain kit (monorepo Claude-kit)
 
-Nếu bạn vừa chỉnh skill trong **`my-skills/.claude/skills/`** và muốn đồng bộ vào repo này rồi chuẩn hoá frontmatter / path:
+Nếu bạn chỉnh skill ở bản nguồn khác trong monorepo và muốn đồng bộ vào repo này rồi chuẩn hoá frontmatter / path:
 
 ```bash
 cd /đường/dẫn/tới/cursor-skills
-rsync -a ../my-skills/.claude/skills/ ./.cursor/skills/
+# Ví dụ: nguồn skill nằm trong cây .cursor của repo khác
+rsync -a ../other-repo/.cursor/skills/ ./.cursor/skills/
 python3 ./.cursor/_fix_skills_frontmatter.py
 python3 ./.cursor/_mirror_paths.py
 ```
 
-Điều chỉnh `../my-skills` cho đúng cây thư mục máy bạn. Người dùng **chỉ copy `.cursor/`** không cần monorepo.
+Điều chỉnh đường dẫn nguồn cho đúng máy bạn. Người dùng **chỉ copy `./.cursor/`** là đủ.
 
 ---
 
@@ -166,7 +167,6 @@ python3 ./.cursor/_mirror_paths.py
 | [`scripts/verify_kit.py`](scripts/verify_kit.py) | Kiểm tra tự động agents / commands / skills / hooks. |
 | [`.cursor/README.md`](.cursor/README.md) | Portable kit, bảng thành phần, bảo trì script. |
 | [`CURSOR.md`](CURSOR.md) | Gợi ý ngắn khi dùng cùng monorepo `Claude-kit`. |
-| [`my-skills/CLAUDE.md`](../my-skills/CLAUDE.md) | Bộ `.claude` (Claude Code) tương ứng — chỉ khi bạn có monorepo. |
 
 ---
 

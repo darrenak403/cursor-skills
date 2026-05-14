@@ -2,8 +2,8 @@
 """
 Session State — persist and restore session context.
 
-State file: .claude/session-data/.last-state.md
-Archives:   .claude/session-data/archive/*.md  (max 10)
+State file: .cursor/session-data/.last-state.md
+Archives:   .cursor/session-data/archive/*.md  (max 10)
 
 Usage as script:
   python session-state.py save   # reads stdin JSON for transcript_path
@@ -53,7 +53,7 @@ def _read_active_plan() -> str:
     root = get_project_root()
     if not root:
         return ""
-    for name in ("plan.md", "PLAN.md", ".claude/plan.md"):
+    for name in ("plan.md", "PLAN.md", ".cursor/plan.md"):
         try:
             text = (root / name).read_text(encoding="utf-8").strip()
             if len(text) > 1200:

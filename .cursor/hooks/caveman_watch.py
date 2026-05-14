@@ -8,8 +8,8 @@ thresholds from .ck.json cavemanMode.threshold.
 Only emits on state transitions (active → inactive, inactive → active)
 to avoid re-triggering every prompt.
 
-State: .claude/session-data/caveman-{session_id}.json  { "active": bool }
-Counter: {TEMP}/claude-tool-count-{session_id}  (same path as suggest_compact.py)
+State: .cursor/session-data/caveman-{session_id}.json  { "active": bool }
+Counter: {TEMP}/ck-tool-count-{session_id}  (same path as suggest_compact.py)
 """
 
 import sys
@@ -58,14 +58,14 @@ def main() -> None:
 
     # Read tool-call counter (same path pattern as suggest_compact.py)
     tmp_dir = Path(os.environ.get("TEMP", os.environ.get("TMPDIR", tempfile.gettempdir())))
-    counter_file = tmp_dir / f"claude-tool-count-{session_id}"
+    counter_file = tmp_dir / f"ck-tool-count-{session_id}"
     try:
         count = int(counter_file.read_text(encoding="utf-8").strip())
     except Exception:
         count = 0
 
     # Read current caveman state
-    state_dir = root / ".claude" / "session-data"
+    state_dir = root / ".cursor" / "session-data"
     state_dir.mkdir(parents=True, exist_ok=True)
     state_file = state_dir / f"caveman-{session_id}.json"
     try:

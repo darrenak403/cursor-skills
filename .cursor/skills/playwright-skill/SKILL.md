@@ -7,9 +7,9 @@ description: Complete browser automation with Playwright. Auto-detects dev serve
 Determine the skill directory from where this SKILL.md was loaded. Replace `$SKILL_DIR` with that path in all commands below.
 
 Common installation paths:
-- Plugin system: `~/.claude/plugins/marketplaces/playwright-skill/skills/playwright-skill`
-- Manual global: `~/.claude/skills/playwright-skill`
-- Project-specific: `<project>/.claude/skills/playwright-skill`
+- Manual global: `~/.cursor/skills/playwright-skill` (or your editor’s global skills dir)
+- Project-specific: `<project>/.cursor/skills/playwright-skill`
+- Other layouts: resolve `$SKILL_DIR` from where this `SKILL.md` was loaded
 
 # Playwright Browser Automation
 

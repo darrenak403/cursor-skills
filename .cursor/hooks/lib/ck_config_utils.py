@@ -3,7 +3,7 @@ Project root detection, .ck.json config access, and common path helpers.
 
 Usage:
     from ck_config_utils import (
-        find_project_root, get_project_name, get_claude_dir, get_sessions_dir,
+        find_project_root, get_project_name, get_user_cursor_dir, get_sessions_dir,
         load_ck_config, get_section, is_enabled,
     )
 """
@@ -58,15 +58,16 @@ def get_home_dir() -> Path:
     return Path(explicit) if explicit else Path.home()
 
 
-def get_claude_dir() -> Path:
-    return get_home_dir() / ".claude"
+def get_user_cursor_dir() -> Path:
+    """User-level Cursor data (e.g. ~/.cursor). Not the project .cursor/ kit folder."""
+    return get_home_dir() / ".cursor"
 
 
 def get_sessions_dir(cwd: str | None = None) -> Path:
     root = find_project_root(cwd)
     if root:
-        return root / ".claude" / SESSION_DATA_DIR
-    return get_claude_dir() / SESSION_DATA_DIR
+        return root / ".cursor" / SESSION_DATA_DIR
+    return get_user_cursor_dir() / SESSION_DATA_DIR
 
 
 def get_project_name(cwd: str | None = None) -> str | None:

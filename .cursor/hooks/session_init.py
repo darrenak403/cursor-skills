@@ -6,7 +6,7 @@ Fires on startup, resume, clear, and compact. Loads coding level and previous
 session state. Skips heavy loading for subagents (detected via
 CLAUDE_PARENT_SESSION_ID); subagent_init.py handles those.
 
-Writes .claude/session-data/session-context.json for subagent_init to read.
+Writes .cursor/session-data/session-context.json for subagent_init to read.
 """
 import json
 import os
@@ -19,7 +19,7 @@ from pathlib import Path
 sys.path.insert(0, str(Path(__file__).parent / "lib"))
 from ck_config_utils import (
     find_project_root as get_project_root,
-    get_claude_dir, get_project_name, get_sessions_dir, load_ck_config,
+    get_user_cursor_dir, get_project_name, get_sessions_dir, load_ck_config,
 )
 from hook_logger import HookLogger, strip_ansi
 from project_detector import detect_project_type, get_package_manager
@@ -52,7 +52,7 @@ def read_coding_level() -> str | None:
         _log.info(f"Coding level: {level} ({_LEVEL_NAMES[level]})")
         if level == -1:
             return None
-        style_file = root / ".claude" / "coding-levels" / _LEVEL_FILES[level]
+        style_file = root / ".cursor" / "coding-levels" / _LEVEL_FILES[level]
         try:
             return style_file.read_text(encoding="utf-8").strip()
         except FileNotFoundError:
@@ -72,7 +72,7 @@ def _strip_coding_level_lines(text: str) -> str:
 
 def list_aliases(limit: int = 5) -> list[dict]:
     try:
-        data = json.loads((get_claude_dir() / "session-aliases.json").read_text(encoding="utf-8"))
+        data = json.loads((get_user_cursor_dir() / "session-aliases.json").read_text(encoding="utf-8"))
         aliases = [{"name": n, **info} for n, info in (data.get("aliases") or {}).items()]
         aliases.sort(key=lambda a: a.get("updatedAt") or a.get("createdAt") or "", reverse=True)
         return aliases[:limit]
@@ -172,7 +172,7 @@ def main() -> None:
     # Config summary
     root = get_project_root()
     if root:
-        counts = get_config_summary(root / ".claude")
+        counts = get_config_summary(root / ".cursor")
         logger.info(f"Config: {counts['hooks']} hooks, {counts['skills']} skills, {counts['agents']} agents")
 
     # Write compact session context for subagent_init

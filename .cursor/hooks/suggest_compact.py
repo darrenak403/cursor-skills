@@ -18,7 +18,7 @@ session_id = os.environ.get("CLAUDE_SESSION_ID") or os.environ.get("PPID", "defa
 threshold = int(os.environ.get("COMPACT_THRESHOLD", "50"))
 
 tmp_dir = Path(os.environ.get("TEMP", os.environ.get("TMPDIR", "/tmp")))
-counter_file = tmp_dir / f"claude-tool-count-{session_id}"
+counter_file = tmp_dir / f"ck-tool-count-{session_id}"
 
 try:
     count = int(counter_file.read_text().strip()) + 1 if counter_file.exists() else 1
