@@ -1,6 +1,6 @@
 # Hooks in this kit
 
-These scripts were authored for **Claude Code** (`SessionStart`, `UserPromptSubmit`, `PreToolUse`, …) and often read or write paths under **`.claude/`** (for example `.claude/session-data`, `.claude/contexts`).
+When you copy this **`.cursor/`** tree into another repository, **skills, rules, commands, agents, and contexts work** from that repo’s workspace root without extra configuration. **These Python files are the exception:** they target **Claude Code** (`SessionStart`, `UserPromptSubmit`, `PreToolUse`, …) and often read or write paths under **`.claude/`** (for example `.claude/session-data`, `.claude/contexts`).
 
 Cursor Agent hooks use **`.cursor/hooks.json`** with different event names and stdin/stdout contracts. Do not assume this Python code runs unchanged in Cursor.
 

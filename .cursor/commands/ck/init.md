@@ -24,7 +24,7 @@ Read `$ARGUMENTS`. Dispatch on the first token:
 
 Wizard mode uses `AskUserQuestion` select boxes for all choices. Whenever the user selects `Abort`: output `Aborted. No files written.` and stop immediately.
 
-The source directory is always `the Cursor workspace root (the folder that contains this `.cursor` directory for this kit)/.cursor/` (this repo).
+The source directory is always **`<WORKSPACE>/.cursor/`** — i.e. the `.cursor` folder at the root of the Cursor workspace (the same kit the user copied in; not a hard-coded repo path).
 
 ---
 
@@ -169,7 +169,7 @@ Show a file tree of everything that will be written:
                 lib/  <shared hook utilities>
     contexts/   dev.md  research.md  review.md
     coding-levels/  <all files from source>
-    rules/  agents.md  commands.md  skills.md
+    rules/  ck-command-design.mdc  ck-agent-design.mdc  ck-skill-design.mdc
     settings.json   (generated)
   CLAUDE.md         (if requested)
   .ck.json          (generated)
@@ -203,7 +203,7 @@ From `the Cursor workspace root (the folder that contains this `.cursor` directo
 - `hooks/lib/` (copy entire directory recursively)
 - `contexts/dev.md`, `contexts/research.md`, `contexts/review.md`
 - All files in `coding-levels/` (enumerate with Glob — do not hardcode names)
-- `rules/agents.md`, `rules/commands.md`, `rules/skills.md`
+- `rules/ck-command-design.mdc`, `rules/ck-agent-design.mdc`, `rules/ck-skill-design.mdc`
 - `commands/ck/init.md`, `commands/ck/coding-level.md`, `commands/ck/brainstorm.md`
 
 **5c. Copy bundle files**
@@ -274,9 +274,9 @@ Path-scoped design rules live in `.cursor/rules/`:
 
 | File | Activates for |
 |------|---------------|
-| `.cursor/rules/agents.md` | `.cursor/agents/**` |
-| `.cursor/rules/commands.md` | `.cursor/commands/**` |
-| `.cursor/rules/skills.md` | `.cursor/skills/**` |
+| `.cursor/rules/ck-agent-design.mdc` | `.cursor/agents/**` |
+| `.cursor/rules/ck-command-design.mdc` | `.cursor/commands/**` |
+| `.cursor/rules/ck-skill-design.mdc` | `.cursor/skills/**` |
 ```
 
 **5h. Configure `.ck.json`**

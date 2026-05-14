@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-"""Rewrite mirrored kit paths: .claude -> .cursor under my-skills/.cursor (commands, agents, contexts, coding-levels)."""
+"""Rewrite kit paths: .claude -> .cursor in commands, agents, contexts, coding-levels (run from any workspace that contains this .cursor/)."""
 from __future__ import annotations
 
 from pathlib import Path
